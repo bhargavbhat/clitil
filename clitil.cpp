@@ -6,7 +6,6 @@
 
 using namespace json11;
 
-
 int main()
 {
     //fetch JSON from server
@@ -24,6 +23,5 @@ int main()
     {
         auto dat = it->object_items();
         std::cout<<dat["data"]["title"].string_value()<<std::endl;
-        std::cout<<"https://www.reddit.com/"<<dat["data"]["permalink"].string_value()<<std::endl;
     }
 }
