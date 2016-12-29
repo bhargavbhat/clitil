@@ -1,6 +1,7 @@
 #include <cstring>
 #include <algorithm>
 #include "CurlWrapper.h"
+#include "Config.h"
 
 static char error[256] = {};
 
@@ -59,9 +60,12 @@ static size_t memfwrite(char* ptr, size_t size, size_t count, void* stream)
     return block;
 }
 
-std::string CurlWrapper::getJSON()
+std::string CurlWrapper::getJSON(const FeedType type)
 {
     std::string retVal;
+    auto uri = getServerURI(type);
+    auto ua = getUserAgent();
+
     MEMFILE* mf = memfopen();
     CURL* curl = curl_easy_init();
     curl_easy_setopt(curl, CURLOPT_URL, uri.c_str());

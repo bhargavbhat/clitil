@@ -1,27 +1,28 @@
 #include <iostream>
 #include <string>
-#include <cstring>
 #include "CurlWrapper.h"
-#include "json11/json11.hpp"
-
-using namespace json11;
+#include "JsonParser.h"
+#include "Config.h"
 
 int main()
 {
-    //fetch JSON from server
-    std::string err;
-    std::string server_data = CurlWrapper::getJSON();
-    auto d = Json::parse(server_data, err);
-    auto root = d["data"];
-    auto list_root = root["children"];
-    auto it = list_root.array_items().begin();
+    // source tells you what to fetch
+    auto source = FeedType::REDDIT_TIL;
 
-    // skip over the first entry
-    ++it;
+    // server_data is the raw response from the server
+    auto server_data = CurlWrapper::getJSON(source);
 
-    //for(; it != list_root.array_items().end(); ++it)
+    if(!server_data.empty())
     {
-        auto dat = it->object_items();
-        std::cout<<dat["data"]["title"].string_value()<<std::endl;
+        // message is the final message to be shown to user
+        auto message = JsonParser::parseJSON(source, server_data);
+
+        if(!message.empty())
+            std::cout<<message<<std::endl;
+    }
+    else
+    {
+        // handler for network/connectivity issues
+        std::cout<<ERR_MSG_NETWORK<<std::endl;
     }
 }

@@ -10,8 +10,8 @@ TARGET = clitil
 
 all: json11.a clitil
 
-clitil: clitil.cpp CurlWrapper.cpp CurlWrapper.h
-	$(CXX) $(CXXFLAGS) clitil.cpp CurlWrapper.cpp $(JSONLIB) -lcurl -o $(TARGET)
+clitil: clitil.cpp CurlWrapper.cpp CurlWrapper.h JsonParser.h JsonParser.cpp Config.h Config.cpp
+	$(CXX) $(CXXFLAGS) clitil.cpp CurlWrapper.cpp JsonParser.cpp Config.cpp $(JSONLIB) -lcurl -o $(TARGET)
 	$(STRIP) $(TARGET)
 
 json11.a: ./json11/json11.cpp ./json11/json11.hpp
