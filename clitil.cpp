@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include "curl_wrapper.h"
+#include "CurlWrapper.h"
 #include "json11/json11.hpp"
 
 using namespace json11;
