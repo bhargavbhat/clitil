@@ -1,6 +1,6 @@
 #include <cstring>
 #include <algorithm>
-#include "curl_wrapper.h"
+#include "CurlWrapper.h"
 
 static char error[256] = {};
 

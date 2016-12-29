@@ -1,21 +1,22 @@
 CXX = g++ -std=c++11
-CXXFLAGS =
+CXXFLAGS = -O3
 AR = ar
 ARFLAGS = rs
-
-LIBFLAGS = -c -fno-rtti -fno-exceptions
+LIBFLAGS = -c -O3 -fno-rtti -fno-exceptions
 LIBINC = -I ./json11
+JSONLIB = json11.a
+STRIP = strip -s
+TARGET = clitil
 
 all: json11.a clitil
 
-clitil: clitil.cpp curl_wrapper.cpp
-	$(CXX) $(CXXFLAGS) clitil.cpp curl_wrapper.cpp json11.a -lcurl -o clitil
+clitil: clitil.cpp CurlWrapper.cpp CurlWrapper.h
+	$(CXX) $(CXXFLAGS) clitil.cpp CurlWrapper.cpp $(JSONLIB) -lcurl -o $(TARGET)
+	$(STRIP) $(TARGET)
 
-json11.o: ./json11/json11.cpp
+json11.a: ./json11/json11.cpp ./json11/json11.hpp
 	$(CXX) $(LIBFLAGS) ./json11/json11.cpp $(LIBINC) 
-
-json11.a: json11.o
-	$(AR) $(ARFLAGS) json11.a json11.o
+	$(AR) $(ARFLAGS) $(JSONLIB) json11.o
 
 clean:
 	@rm -f clitil *.a *.o
