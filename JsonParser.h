@@ -12,6 +12,7 @@ namespace json11
 class JsonParser
 {
         static std::string parseRedditTIL(const json11::Json& json);
+        static std::string parseNumbersAPI(const json11::Json& json);
     public:
         static std::string parseJSON(const FeedType type, const std::string& raw_json);
 };

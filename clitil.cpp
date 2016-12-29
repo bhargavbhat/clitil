@@ -4,10 +4,16 @@
 #include "JsonParser.h"
 #include "Config.h"
 
-int main()
+int main(int argc, char** argv)
 {
     // source tells you what to fetch
     auto source = FeedType::REDDIT_TIL;
+
+    if(argc > 1)
+    {
+        std::string src(argv[1]);
+        source = getSource(src);
+    }
 
     // server_data is the raw response from the server
     auto server_data = CurlWrapper::getJSON(source);

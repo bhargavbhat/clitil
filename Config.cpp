@@ -1,6 +1,29 @@
+#include <algorithm>
+#include <iostream>
 #include "Config.h"
 
-// Helper Methods
+const FeedType getSource(const std::string& src)
+{
+    std::string str;
+    str.resize(src.length());
+    std::transform(src.begin(), src.end(), str.begin(), ::tolower);
+    FeedType retVal;
+
+    if(str.compare("reddit") == 0)
+    {
+        retVal = FeedType::REDDIT_TIL;
+    }
+    else if(str.compare("numbers") == 0)
+    {
+        retVal = FeedType::NUMBERS_API; 
+    }
+    else
+    {
+        retVal = FeedType::REDDIT_TIL;
+    }
+
+    return retVal;
+}
 const std::string getUserAgent()
 {
     return CONF_BOT_USER_AGENT;
@@ -13,6 +36,9 @@ const std::string getServerURI(FeedType type)
     {
         case FeedType::REDDIT_TIL:
             retVal = "https://www.reddit.com/r/todayilearned/top/.json?count=1";
+            break;
+        case FeedType::NUMBERS_API:
+            retVal = "http://numbersapi.com/random/year?json";
             break;
         default:
             // nothing to do

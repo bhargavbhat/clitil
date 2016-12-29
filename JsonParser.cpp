@@ -4,12 +4,15 @@
 
 using namespace json11;
 
+// driver method
 std::string JsonParser::parseJSON(const FeedType type, const std::string& raw_json)
 {
     std::string retVal;
     std::string err;
     auto resp = Json::parse(raw_json, err);
 
+    // process further only if there were no
+    // errors during parsing of raw JSON data
     if(err.empty())
     {
         switch(type)
@@ -17,7 +20,9 @@ std::string JsonParser::parseJSON(const FeedType type, const std::string& raw_js
             case FeedType::REDDIT_TIL:
                 retVal = parseRedditTIL(resp);
                 break;
-
+            case FeedType::NUMBERS_API:
+                retVal = parseNumbersAPI(resp);
+                break;
             default:
                 // nothing to be done
                 break;
@@ -26,6 +31,7 @@ std::string JsonParser::parseJSON(const FeedType type, const std::string& raw_js
     return retVal;
 }
 
+// parser for r/TodayILearned JSON
 std::string JsonParser::parseRedditTIL(const json11::Json& json)
 {
     std::string retVal;
@@ -58,5 +64,15 @@ std::string JsonParser::parseRedditTIL(const json11::Json& json)
         retVal = ERR_MSG_IMPOSSIBLE; 
     }
 
+    return retVal;
+}
+
+// parse for numbersapi.com JSON
+std::string JsonParser::parseNumbersAPI(const json11::Json& json)
+{
+    std::string retVal;
+    auto msg = json["text"];
+    if(!msg.is_null())
+        retVal = "TIL " + msg.string_value();
     return retVal;
 }

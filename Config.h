@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 
+// Identify the source of the feed
 enum class FeedType : int8_t
 {
     FEED_INVALID = -1,
     REDDIT_TIL,
-
+    NUMBERS_API,
     FEED_MAX_COUNT = 127
 };
 
@@ -20,7 +21,7 @@ const std::string ERR_MSG_NETWORK = "TIL that this computer(or the remote end) h
 // Test stuff
 const std::string TEST_REDDIT_RATE_LIMIT = R"err({"message": "Too Many Requests", "error": 429})err";
 
-// Helper Methods    
+// Helper Methods
+const FeedType getSource(const std::string& src);
 const std::string getUserAgent();
 const std::string getServerURI(FeedType type);
-
