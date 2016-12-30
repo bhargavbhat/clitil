@@ -23,8 +23,11 @@ std::string JsonParser::parseJSON(const FeedType type, const std::string& raw_js
             case FeedType::NUMBERS_API:
                 retVal = parseNumbersAPI(resp);
                 break;
-            default:
-                // nothing to be done
+            case FeedType::ICNDB_API:
+                retVal = parseICNDBAPI(resp);
+                break;
+             default:
+                // nothing to do
                 break;
         }
     }
@@ -74,5 +77,24 @@ std::string JsonParser::parseNumbersAPI(const json11::Json& json)
     auto msg = json["text"];
     if(!msg.is_null())
         retVal = "TIL " + msg.string_value();
+    return retVal;
+}
+
+std::string JsonParser::parseICNDBAPI(const json11::Json& json)
+{
+    std::string retVal;
+    auto msg = json["type"];
+    if(!msg.is_null())
+    {
+        auto val = msg.string_value();
+        if(val.compare("success") == 0)
+        {
+            auto joke = json["value"]["joke"];
+            if(!joke.is_null())
+            {
+                retVal = "TIL that, " + joke.string_value();
+            }
+        }
+    }
     return retVal;
 }

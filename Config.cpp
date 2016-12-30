@@ -17,6 +17,10 @@ const FeedType getSource(const std::string& src)
     {
         retVal = FeedType::NUMBERS_API; 
     }
+    else if(str.compare("icndb") == 0)
+    {
+        retVal = FeedType::ICNDB_API; 
+    }
     else
     {
         retVal = FeedType::REDDIT_TIL;
@@ -39,6 +43,9 @@ const std::string getServerURI(FeedType type)
             break;
         case FeedType::NUMBERS_API:
             retVal = "http://numbersapi.com/random/year?json";
+            break;
+        case FeedType::ICNDB_API:
+            retVal = "http://api.icndb.com/jokes/random?limitTo=%5Bnerdy%5D";
             break;
         default:
             // nothing to do

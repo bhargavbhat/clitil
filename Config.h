@@ -7,6 +7,7 @@ enum class FeedType : int8_t
     FEED_INVALID = -1,
     REDDIT_TIL,
     NUMBERS_API,
+    ICNDB_API,
     FEED_MAX_COUNT = 127
 };
 
