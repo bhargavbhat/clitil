@@ -19,7 +19,11 @@ json11.a: ./json11/json11.cpp ./json11/json11.hpp
 	$(AR) $(ARFLAGS) $(JSONLIB) json11.o
 
 clean:
-	@rm -f clitil *.a *.o
+	@rm -f clitil clitil-test *.a *.o
 
-test:
-	@./clitil
+test: json11.a clitil-test
+	"./clitil-test"
+	
+clitil-test: clitil-test.cpp CurlWrapper.cpp CurlWrapper.h JsonParser.h JsonParser.cpp Config.h Config.cpp
+	$(CXX) $(CXXFLAGS) clitil-test.cpp CurlWrapper.cpp JsonParser.cpp Config.cpp $(JSONLIB) -I ./Catch/include/ -lcurl -o clitil-test
+
