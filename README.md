@@ -4,7 +4,7 @@ A Simple program that can show facts from online sources. Something like `fortun
 ### Building
 * Fetch dependencies (`json11`) by running `git submodule update --init`
 * run `make`
-* run `make test`
+* run `/.clitil` to see the program in action
 
 ### Options
 * Source to fetch from is passed in as a command line parameter, eg: `./clitil numbers`
@@ -13,8 +13,14 @@ A Simple program that can show facts from online sources. Something like `fortun
     * `numbers` for the [NumbersAPI](http://numbersapi.com) - fact about a random year
     * `icndb` for [ICNDB](http://www.icndb.com/) - random Chuck Norris joke
 
+### Tests
+* Unit testing handled via the [CATCH](https://github.com/philsquared/Catch) framework
+* To run tests, execute `make test`
+* Tests for the NumbersAPI and ICNDB are yet to be added
+
 ### Pretty Printing
-This small application doesn't handle pretty printing, the standard command line tool `cowsay` or similar can be used to get pretty results. Eg: `./clitil numbers | cowsay - f turtle` produces:
+* `cliltil` does not handle pretty printing. 
+* A standard command line tool like `cowsay` (or similar) can be used to get pretty results. Eg: `./clitil numbers | cowsay - f turtle` produces:
 ```
  _______________________________________
 / TIL 993 is the year that Saint Ulrich \
