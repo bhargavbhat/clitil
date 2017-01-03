@@ -39,7 +39,7 @@ const std::string getServerURI(FeedType type)
     switch(type)
     {
         case FeedType::REDDIT_TIL:
-            retVal = "https://www.reddit.com/r/todayilearned/top/.json?count=1";
+            retVal = "https://www.reddit.com/r/todayilearned/top/.json?limit=1";
             break;
         case FeedType::NUMBERS_API:
             retVal = "http://numbersapi.com/random/year?json";

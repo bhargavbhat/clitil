@@ -54,10 +54,6 @@ std::string RedditTILResponseParser::parse(const CurlResponse& resp)
         {
             auto list_root = root["children"];
             auto it = list_root.array_items().begin();
-
-            // skip over the first entry
-            ++it;
-
             if(it != list_root.array_items().end())
             {
                 auto dat = it->object_items();

@@ -19,9 +19,6 @@ const std::string ERR_MSG_RATE_LIM = "TIL the server is Rate Limiting this bot";
 const std::string ERR_MSG_IMPOSSIBLE = "TIL that in software, the impossible is possible and things that should never happen, happen sometimes.";
 const std::string ERR_MSG_NETWORK = "TIL that this computer(or the remote end) has connectivity issues";
 
-// Test stuff
-const std::string TEST_REDDIT_RATE_LIMIT = R"err({"message": "Too Many Requests", "error": 429})err";
-
 // Helper Methods
 const FeedType getSource(const std::string& src);
 const std::string getUserAgent();
