@@ -60,9 +60,9 @@ static size_t memfwrite(char* ptr, size_t size, size_t count, void* stream)
     return block;
 }
 
-std::string CurlWrapper::getJSON(const FeedType type)
+CurlResponse CurlWrapper::getResponse(const FeedType type)
 {
-    std::string retVal;
+    CurlResponse retVal;
     auto uri = getServerURI(type);
     auto ua = getUserAgent();
 
@@ -76,7 +76,7 @@ std::string CurlWrapper::getJSON(const FeedType type)
     curl_easy_setopt(curl, CURLOPT_USERAGENT, ua.c_str());
     if (curl_easy_perform(curl) == CURLE_OK) 
     {
-        retVal = std::string(mf->data, mf->data + mf->size);
+        retVal.setResponse(std::string(mf->data, mf->data + mf->size));
     }
     curl_easy_cleanup(curl);
     memfclose(mf);

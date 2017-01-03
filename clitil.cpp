@@ -16,12 +16,12 @@ int main(int argc, char** argv)
     }
 
     // server_data is the raw response from the server
-    auto server_data = CurlWrapper::getJSON(source);
+    auto server_data = CurlWrapper::getResponse(source);
 
-    if(!server_data.empty())
+    if(server_data.valid())
     {
         // message is the final message to be shown to user
-        auto message = JsonParser::parseJSON(source, server_data);
+        auto message = JsonParser::parseJSON(source, server_data.getResponse());
 
         if(!message.empty())
             std::cout<<message<<std::endl;
