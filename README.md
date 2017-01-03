@@ -1,7 +1,5 @@
 ## CLI-TIL
-A Simple program that can show facts from a few online sources
-
-Currently for Linux Only
+A Simple program that can show facts from online sources. Something like `fortune` except this one fetches its quotes via JSON from websites. Currently for Linux Only. Requires a C++11 compiler.
 
 ### Building
 * Fetch dependencies (`json11`) by running `git submodule update --init`
